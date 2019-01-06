@@ -15,15 +15,19 @@ import os
 import readline
 import sys
 from collections import deque
+from typing import Deque, List
 
 import pikepdf
+from pikepdf._qpdf import Pdf
+from pyrsistent import freeze, pvector, v
+from pyrsistent.typing import PVector
 
 VERSION = "0.1"
 OUTPUT = 'output.pdf'
 VIEWER = "okular"
 
 
-def usage():
+def usage() -> None:
     text = f"""
 PDF Manipulator v{VERSION} by Laszlo Szathmary (jabba.laci@gmail.com), 2019
 Usage:
@@ -35,7 +39,7 @@ Then the program switches to interactive mode.
     print(text)
 
 
-def print_help():
+def print_help() -> None:
     text = f"""
 h, help        - this help
 q, quit        - quit
@@ -54,12 +58,12 @@ reload, reset  - reload input.pdf
     print(text)
 
 
-def get_pages(s, last):
+def get_pages(s: str, last: int) -> PVector[int]:
     s = s.strip()
     if len(s) == 0:
-        return []
+        return v()
 
-    li = []
+    li: List[int] = []
     #
     for piece in s.split(','):
         pos = piece.find('-')
@@ -73,14 +77,14 @@ def get_pages(s, last):
         else:
             li.append(int(piece))
     #
-    return li
+    return freeze(li)
 
 
-def print_info(pdf):
+def print_info(pdf: Pdf) -> None:
     print("Number of pages: {}".format(len(pdf.pages)))
 
 
-def write_file(pdf, overwrite=False):
+def write_file(pdf: Pdf, overwrite=False) -> None:
     if os.path.isfile(OUTPUT):
         if not overwrite:
             print("Warning! The file output.pdf already exists")
@@ -91,7 +95,7 @@ def write_file(pdf, overwrite=False):
     os.system(f"ls -al | grep {OUTPUT}")
 
 
-def open_pdf(fname, what):
+def open_pdf(fname: str, what: str) -> None:
     if what == "input":
         os.system(f"{VIEWER} {fname} &>/dev/null &")
     if what == "output":
@@ -101,10 +105,10 @@ def open_pdf(fname, what):
             print(f"Warning: {OUTPUT} doesn't exist")
 
 
-def delete_pages(pdf, pages):
+def delete_pages(pdf: Pdf, pages: PVector[int]) -> Pdf:
 
-    def minus_one(q):
-        res = deque([])
+    def minus_one(q: Deque[int]) -> Deque[int]:
+        res: Deque[int] = deque([])
         for n in q:
             res.append(n - 1)
         return res
@@ -118,7 +122,7 @@ def delete_pages(pdf, pages):
     return pdf
 
 
-def process(fname):
+def process(fname: str) -> None:
     if not os.path.isfile(fname):
         print("Error: the input file doesn't exist", file=sys.stderr)
         exit(1)
