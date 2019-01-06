@@ -7,7 +7,7 @@ Motivation
 ----------
 
 I prefer reading on paper, so I print a lot. Often, when
-I export for instance a blog post in PDF, usually there are
+I export for instance a blog post in PDF, there are
 some pages that I don't want to print.
 
 This little tool helps me removing the unwanted pages easily.
@@ -16,7 +16,7 @@ Demo
 ----
 
 You must provide the input PDF and then it goes to interactive mode.
-The output is written as `output.pdf`.
+The output is written to `output.pdf`.
 
 ```
 $ ./pdfmanip.py input.pdf
