@@ -140,7 +140,9 @@ def process(fname: str) -> None:
             print("bye")
             exit()
         #
-        if inp in ('h', 'help'):
+        if inp == "":
+            continue
+        elif inp in ('h', 'help'):
             print_help()
         elif inp in ('q', 'quit'):
             print("bye")
