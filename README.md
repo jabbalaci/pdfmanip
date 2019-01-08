@@ -57,3 +57,15 @@ Supported platform
 ------------------
 
 Linux only.
+
+Reddit discussion
+-----------------
+
+See [here](https://old.reddit.com/r/Python/comments/ad617g/a_cli_util_to_manipulate_pdf_files_eg_remove/).
+
+Related work
+------------
+
+* [pikepdf](https://github.com/pikepdf/pikepdf) Python library (this is what I used)
+* [pdftk](https://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/), a powerful PDF-manipulating command-line tool
+* [PDFsam](https://pdfsam.org/) ([wikipedia article](https://en.wikipedia.org/wiki/PDF_Split_and_Merge)), a more heavyweight solution for manipulating your PDFs
