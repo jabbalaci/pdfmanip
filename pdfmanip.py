@@ -18,7 +18,7 @@ from collections import deque
 from typing import Deque, List
 
 import pikepdf
-from pikepdf._qpdf import Pdf
+from pikepdf import Pdf
 from pyrsistent import freeze, pvector, v
 from pyrsistent.typing import PVector
 
