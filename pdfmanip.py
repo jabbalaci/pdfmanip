@@ -12,18 +12,17 @@ by Laszlo Szathmary (jabba.laci@gmail.com)
 """
 
 import os
-import readline
+import readline  # noqa
 import sys
 from collections import deque
-from typing import Deque, List
 
 import pikepdf
 from pikepdf import Pdf
-from pyrsistent import freeze, pvector, v
+from pyrsistent import freeze, v
 from pyrsistent.typing import PVector
 
 VERSION = "0.1"
-OUTPUT = 'output.pdf'
+OUTPUT = "output.pdf"
 VIEWER = "okular"
 
 
@@ -63,17 +62,17 @@ def get_pages(s: str, last: int) -> PVector[int]:
     if len(s) == 0:
         return v()
 
-    li: List[int] = []
+    li: list[int] = []
     #
-    for piece in s.split(','):
-        pos = piece.find('-')
+    for piece in s.split(","):
+        pos = piece.find("-")
         if pos > -1:
             n1 = int(piece[:pos])
-            if piece.endswith('-'):
+            if piece.endswith("-"):
                 n2 = last
             else:
-                n2 = int(piece[pos+1:])
-            li.extend(range(n1, n2+1))
+                n2 = int(piece[pos + 1 :])
+            li.extend(range(n1, n2 + 1))
         else:
             li.append(int(piece))
     #
@@ -106,9 +105,8 @@ def open_pdf(fname: str, what: str) -> None:
 
 
 def delete_pages(pdf: Pdf, pages: PVector[int]) -> Pdf:
-
-    def minus_one(q: Deque[int]) -> Deque[int]:
-        res: Deque[int] = deque([])
+    def minus_one(q: deque[int]) -> deque[int]:
+        res: deque[int] = deque([])
         for n in q:
             res.append(n - 1)
         return res
@@ -142,22 +140,22 @@ def process(fname: str) -> None:
         #
         if inp == "":
             continue
-        elif inp in ('h', 'help'):
+        elif inp in ("h", "help"):
             print_help()
-        elif inp in ('q', 'quit'):
+        elif inp in ("q", "quit"):
             print("bye")
             break
-        elif inp in ('i', 'info'):
+        elif inp in ("i", "info"):
             print_info(pdf)
-        elif inp == 'w':
+        elif inp == "w":
             write_file(pdf, overwrite=False)
-        elif inp == 'w!':
+        elif inp == "w!":
             write_file(pdf, overwrite=True)
-        elif inp in ('d', 'ls'):
+        elif inp in ("d", "ls"):
             os.system("ls -al")
-        elif inp == 'oi':
+        elif inp == "oi":
             open_pdf(fname, what="input")
-        elif inp == 'oo':
+        elif inp == "oo":
             open_pdf(fname, what="output")
         elif inp == "del":
             print("provide the pages too")
@@ -173,6 +171,7 @@ def process(fname: str) -> None:
             print_info(pdf)
         else:
             print("What?")
+
 
 ##############################################################################
 
